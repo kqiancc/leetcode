@@ -1,0 +1,26 @@
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+
+        unique_sets = []
+        indices = []
+        result = []
+
+        for i, word in enumerate(strs): #turn each str item in the list strs and sort() it so theres no repeating,
+            word_set = sorted(word)
+
+            if word_set in unique_sets: #and other one that have the same set,
+                index = unique_sets.index(word_set)
+                indices[index].append(i)   #and then group those words together by using the index from the set on the original strs list
+
+            else:
+                unique_sets.append(word_set)  #if theres no match then it gets put in its own thing 
+                indices.append([i])  #then for each one track its index when you find the first 
+                
+        for group in indices: #and then each list gets added to a big list that will be returned  
+            result.append([strs[i] for i in group])
+
+        return result
